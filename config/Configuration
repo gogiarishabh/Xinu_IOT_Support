@@ -102,6 +102,28 @@ spi:
 		-r ionull	-g ionull	-p ionull
 		-w ionull	-s ionull	-n spicontrol
 		-intr ionull
+
+buz:
+	on gpio
+		-i ionull	-o buzopen	-c buzclose
+		-r ionull	-g ionull	-p ionull
+		-w buzwrite	-s ionull	-n ionull
+		-intr ionull
+
+cts:
+        on gpio
+                -i ctsinit      -o ctsopen      -c ionull
+                -r ctsread      -g ionull       -p ionull
+                -w ionull       -s ionull       -n ionull
+                -intr ctshandler
+
+fsr:
+        on ain
+                -i fsrinit      -o fsropen      -c fsrclose
+                -r fsrread      -g ionull       -p ionull
+                -w ionull       -s ionull       -n ionull
+                -intr ionull
+
 %%
 
 /* Actual device declarations that each give the name of a device that	*/
@@ -159,6 +181,15 @@ spi:
 
    SPI0 is spi on top csr 0x48030000
    SPI1 is spi on top csr 0x481A0000
+
+   /* Buzzer device */
+   BUZ0 is buz on gpio
+
+   /* Capacitive Touch Sensor device */
+   CTS0 is cts on gpio -irq 98
+
+   /* Force Sensitive Resistor (Pressure Sensor) device */
+   FSR0 is fsr on ain
 
 %%
 

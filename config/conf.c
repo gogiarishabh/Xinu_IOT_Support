@@ -199,5 +199,26 @@ struct	dentry	devtab[NDEVS] =
 	  (void *)spiinit, (void *)ionull, (void *)ionull,
 	  (void *)ionull, (void *)ionull, (void *)ionull,
 	  (void *)ionull, (void *)ionull, (void *)spicontrol,
-	  (void *)0x481a0000, (void *)ionull, 0 }
+	  (void *)0x481a0000, (void *)ionull, 0 },
+
+/* BUZ0 is buz */
+	{ 26, 0, "BUZ0",
+	  (void *)ionull, (void *)buzopen, (void *)buzclose,
+	  (void *)ionull, (void *)buzwrite, (void *)ionull,
+	  (void *)ionull, (void *)ionull, (void *)ionull,
+	  (void *)0x0, (void *)ionull, 0 },
+
+/* CTS0 is cts */
+	{ 27, 0, "CTS0",
+	  (void *)ctsinit, (void *)ctsopen, (void *)ionull,
+	  (void *)ctsread, (void *)ionull, (void *)ionull,
+	  (void *)ionull, (void *)ionull, (void *)ionull,
+	  (void *)0x0, (void *)ctshandler, 98 },
+
+/* FSR0 is fsr */
+	{ 28, 0, "FSR0",
+	  (void *)fsrinit, (void *)fsropen, (void *)fsrclose,
+	  (void *)fsrread, (void *)ionull, (void *)ionull,
+	  (void *)ionull, (void *)ionull, (void *)ionull,
+	  (void *)0x0, (void *)ionull, 0 }
 };

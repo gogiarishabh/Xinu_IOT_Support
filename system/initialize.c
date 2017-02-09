@@ -26,6 +26,9 @@ struct	memblk	memlist;	/* List of free memory blocks		*/
 int	prcount;		/* Total number of live processes	*/
 pid32	currpid;		/* ID of currently executing process	*/
 
+/* Semaphore for access to cts device */
+sid32	cts_sem;
+
 /* Control sequence to reset the console colors and cusor positiion	*/
 
 #define	CONSOLE_RESET	" \033[0m\033[2J\033[;H"
@@ -202,6 +205,8 @@ static	void	sysinit()
 		semptr->scount = 0;
 		semptr->squeue = newqueue();
 	}
+
+	cts_sem=semcreate(0);	
 
 	/* Initialize buffer pools */
 

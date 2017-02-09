@@ -1,6 +1,9 @@
 /* xinu.h - include all system header files */
 
 #include <kernel.h>
+#include <gpio.h>
+#include <adc.h>
+#include <cts.h>
 #include <conf.h>
 #include <process.h>
 #include <queue.h>
@@ -21,7 +24,6 @@
 #include <lfilesys.h>
 #include <spi.h>
 #include <ether.h>
-#include <gpio.h>
 #include <net.h>
 #include <ip.h>
 #include <arp.h>

@@ -1,57 +1,38 @@
-/* gpio.h */
+/* gpio.h - unsetbit, setbit */
 
-/* GPIO memory-mapped I/O address */
-#define GPIO_BASE 0xB8000060
+#define PIN_VAL			28
 
-/* GPIO bits for pin direction */
-#define GPIO_DIR_IN        0x00 /**< set pin for input                  */
-#define GPIO_DIR_OUT       0x01 /**< set pin for output                 */
+/* GPIO base addresses */
+#define GPIO0             	0x44E07000
+#define GPIO1           	0x4804C000
+#define GPIO2   	        0x481AC000
+#define GPIO3			0x481AE000
 
-/* GPIO bit flags for pins */
-#define GPIO0              0x01
-#define GPIO1              0x02
-#define GPIO2              0x04
-#define GPIO3              0x08
-#define GPIO4              0x10
-#define GPIO5              0x20
-#define GPIO6              0x40
-#define GPIO7              0x80
+#define GPIO_REVISION 		0x0 	
+#define GPIO_SYSCONFIG 		0x10 
+#define GPIO_EOI 		0x20 
+#define GPIO_IRQSTATUS_RAW_0 	0x24 
+#define GPIO_IRQSTATUS_RAW_1 	0x28 
+#define GPIO_IRQSTATUS_0 	0x2C 
+#define GPIO_IRQSTATUS_1 	0x30 
+#define GPIO_IRQSTATUS_SET_0 	0x34 
+#define GPIO_IRQSTATUS_SET_1 	0x38 
+#define GPIO_IRQSTATUS_CLR_0 	0x3C 
+#define GPIO_IRQSTATUS_CLR_1 	0x40 
+#define GPIO_SYSSTATUS 		0x114
+#define GPIO_CTRL 		0x130
+#define GPIO_OE  		0x134
+#define GPIO_DATAIN 		0x138
+#define GPIO_DATAOUT 		0x13C
+#define GPIO_LEVELDETECT0 	0x140
+#define GPIO_LEVELDETECT1 	0x144
+#define GPIO_RISINGDETECT 	0x148
+#define GPIO_FALLINGDETECT 	0x14C
+#define GPIO_DEBOUNCENABLE	0x150
+#define GPIO_DEBOUNCINGTIME 	0x154
+#define GPIO_CLEARDATAOUT 	0x190
+#define GPIO_SETDATAOUT 	0x194
 
-#define GPIO_PIN_COUNT     8
+#define setbit(val,n)		val | (1<<n)
+#define unsetbit(val,n)		val & ~(1<<n)
 
-/* Buttons */
-#define GPIO_BUT_CISCO    GPIO4 /**< Front Cisco button                 */
-#define GPIO_BUT_RESET    GPIO6 /**< Back reset button                  */
-
-/* LEDs */
-#define GPIO_LED_WLAN     GPIO0 /**< WLAN LED                           */
-#define GPIO_LED_POWER    GPIO1 /**< Power LED (hardware controlled)    */
-#define GPIO_LED_CISCOWHT GPIO2 /**< White Cisco LED                    */
-#define GPIO_LED_CISCOONG GPIO3 /**< Orange Cisco LED                   */
-#define GPIO_LED_DMZ      GPIO7 /**< DMZ LED                            */
-
-/**
- * Control and status registers for the GPIO.
- */
-struct gpio_csreg
-{
-    volatile uint32 gp_input;       /**< input                              */
-    volatile uint32 gp_output;      /**< output                             */
-    volatile uint32 gp_enable;      /**< direction                          */
-    volatile uint32 gp_control;     /**< usage unkmown                      */
-};
-
-/* LED control functions */
-
-/**
- * Turns an LED on
- * @param n GPIO bit for LED (use GPIO_LED_* constants)
- */
-#define gpioLEDOn(n) ((struct gpio_csreg *)GPIO_BASE)->gp_enable |= (n); \
-		((struct gpio_csreg *)GPIO_BASE)->gp_output &= ~(n)
-
-/**
- * Turns an LED off
- * @param n GPIO bit for LED (use GPIO_LED_* constants)
- */
-#define gpioLEDOff(n) ((struct gpio_csreg *)GPIO_BASE)->gp_enable &= ~(n)

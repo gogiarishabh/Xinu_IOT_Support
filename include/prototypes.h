@@ -592,6 +592,59 @@ extern	void	xdone(void);
 /* in file yield.c */
 extern	syscall	yield(void);
 
+
+
+/* in file buzopen.c */
+extern  devcall buzopen(struct dentry *, char *, char *);
+
+/* in file buzclose.c */
+extern  devcall buzclose(struct dentry *);
+
+/* in file buzwrite.c */
+extern  devcall buzwrite(struct dentry *, char *, int32);
+
+/* in file ctsopen.c */
+extern  devcall ctsopen(struct dentry *, char *, char *);
+
+/* in file ctsread.c */
+extern  devcall ctsread(struct dentry *, char *, int32);
+
+/* in file ctsinit.c */
+extern	devcall ctsinit(struct dentry *);
+
+/* in file ctshandler.c */
+extern	void ctshandler(uint32);
+
+/* in file fsrinit.c */
+extern	devcall fsrinit(struct dentry *);
+
+/* in file fsropen.c */
+extern  devcall fsropen(struct dentry *, char *, char *);
+
+/* in file fsrclose.c */
+extern  devcall fsrclose(struct dentry *);
+
+/* in file fsrread.c */
+extern  devcall fsrread(struct dentry *, char *, int32);
+
+/* in file fsrpoll.c */
+extern	process	fsrpoll(uint32);
+
+/* in file serverfsr.c */
+extern	process	serverfsr(uint32);
+
+/* in file sendpkt.c */
+extern	syscall sendpkt(char *, uint16, char *, uint32);
+
+/* in file recvpkt.c */
+extern	syscall recvpkt(uint32,char *,uint32);
+
+/* in file serverfsr.c */
+extern	process	serverbuz(uint32);
+
+/* in file waittouch.c */
+extern	process	waittouch(uint32);
+
 /* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
 #define	htons(x)   ( ( 0xff & ((x)>>8) ) | ( (0xff & (x)) << 8 ) )
 #define	htonl(x)   (  (((x)>>24) & 0x000000ff) | (((x)>> 8) & 0x0000ff00) | \
